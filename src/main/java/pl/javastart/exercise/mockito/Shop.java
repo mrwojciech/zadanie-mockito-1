@@ -1,6 +1,7 @@
 package pl.javastart.exercise.mockito;
 
 import java.util.Map;
+import java.util.Set;
 
 public class Shop {
 
@@ -19,11 +20,53 @@ public class Shop {
 
     public boolean hasItem(String itemName) {
         // TODO dodaj kod sprawdzający czy sklep na w asortymencie przedmot o danej nazwie
+
+        Set<Map.Entry<Item, Integer>> entries = stock.entrySet();
+
+        /*
+        [
+            {Cola, 2}
+            {Piwo, 5}
+            {Chleb, 1}
+        ]
+         */
+
+        for (Map.Entry<Item, Integer> entry : entries) {
+            Item item = entry.getKey();
+
+            if(item.getName().equals(itemName)) {
+                Integer count = entry.getValue();
+                if(count > 0) {
+                    return true;
+                }
+            }
+        }
+
         return false;
+//
+//
+//        for (Map.Entry<Item, Integer> itemAndCount : stock.entrySet()) {
+//
+//            if(itemAndCount.getKey().getName().equals(itemName)) {
+//
+//                int count = itemAndCount.getValue();
+//                return count > 0;
+//
+//            }
+//
+//        }
+//        return false;
     }
 
     public Item findItemByName(String itemName) {
         // TODO dodaj kod wyszukujący przedmiot po jego nazwie
+        Set<Item> items = stock.keySet();
+        for(Item item : items) {
+            if(item.getName().equals(itemName)) {
+                return item;
+            }
+        }
+
         return null;
     }
 

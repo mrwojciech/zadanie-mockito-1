@@ -1,5 +1,7 @@
 package pl.javastart.exercise.mockito;
 
+import java.util.Map;
+
 public class ShopController {
 
     private Shop shop;
@@ -17,8 +19,15 @@ public class ShopController {
                 throw new TooYoungException();
             }
 
+            Map<Item, Integer> stock = shop.getStock();
+            int currentCount = stock.get(item);
+            stock.put(item, currentCount-1);
+
+            shop.playCashSound();
+
         } else {
             // TODO sklep nie ma danego przedmiotu, wyrzuć wyjątek OutOfStockException
+            throw new OutOfStockException();
         }
 
     }
